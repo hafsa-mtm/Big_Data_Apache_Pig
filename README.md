@@ -16,7 +16,7 @@ Revenue per customer
 Finally, the results are exported from HDFS and visualized using Python, with optional Excel report generation.
 
 ## Project Steps
-1.Start Hadoop Services + Install/Run Pig
+1.Start Hadoop Services + Install/Run Pig:
 Start HDFS & YARN
 ```bash
 start-dfs.sh
@@ -35,13 +35,16 @@ Verify Pig installation:
 pig -v
 ```
 If Pig is linked correctly with Hadoop, it will display Hadoop classpath info.
+
 Run Pig in MapReduce Mode:
 ```bash
 pig -x mapreduce
 quit
 ```
 2.Upload Dataset to HDFS(ecommerce.csv)
+
 The dataset used in this project is included in the repository.
+
 Create input folder:
 ```bash
 hdfs dfs -mkdir /input
@@ -55,18 +58,13 @@ Verify:
 hdfs dfs -ls /input
 ```
 3.Run the Pig Script (analytics.pig):
-The Pig script included in this repo performs:
 
-Load raw CSV
-
-Clean invalid rows
-
-Compute revenue (price * quantity)
 Run the script:
 ```bash
 pig -x mapreduce analytics.pig
 ```
 Results stored in HDFS:
+
 /output/top_products
 
 /output/top_customers
@@ -74,7 +72,8 @@ Results stored in HDFS:
 /output/product_revenue
 
 /output/customer_revenue
-4.View or Download Results from HDFS
+4.View or Download Results from HDFS:
+
 display top products
 ```bash
 hdfs dfs -cat /output/top_products/part-r-00000
@@ -87,7 +86,8 @@ Same applies for:
 ```bash
 hdfs dfs -get /output/top_customers top_customers/
 ```
-5.Visualize Results (Python)
+5.Visualize Results (Python):
+
 Install Python 3:
 ```bash
 sudo yum install python3 -y
