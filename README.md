@@ -16,7 +16,7 @@ Revenue per customer
 Finally, the results are exported from HDFS and visualized using Python, with optional Excel report generation.
 
 ## Project Steps
-1.Start Hadoop Services + Install/Run Pig:
+### 1.Start Hadoop Services + Install/Run Pig:
 Start HDFS & YARN
 ```bash
 start-dfs.sh
@@ -41,7 +41,7 @@ Run Pig in MapReduce Mode:
 pig -x mapreduce
 quit
 ```
-2.Upload Dataset to HDFS(ecommerce.csv)
+### 2.Upload Dataset to HDFS(ecommerce.csv)
 
 The dataset used in this project is included in the repository.
 
@@ -57,7 +57,7 @@ Verify:
 ```bash
 hdfs dfs -ls /input
 ```
-3.Run the Pig Script (analytics.pig):
+### 3.Run the Pig Script (analytics.pig):
 
 Run the script:
 ```bash
@@ -72,7 +72,8 @@ Results stored in HDFS:
 /output/product_revenue
 
 /output/customer_revenue
-4.View or Download Results from HDFS:
+
+### 4.View or Download Results from HDFS:
 
 display top products
 ```bash
@@ -86,7 +87,7 @@ Same applies for:
 ```bash
 hdfs dfs -get /output/top_customers top_customers/
 ```
-5.Visualize Results (Python):
+### 5.Visualize Results (Python):
 
 Install Python 3:
 ```bash
@@ -114,7 +115,7 @@ top_customers_bar.png
 
 <img width="494" height="298" alt="image" src="https://github.com/user-attachments/assets/e1979fbf-8dde-4340-9b6f-27c94e86ce7f" />
 
-Diagram: Full Data Pipeline
+### Diagram: Full Data Pipeline
 
 <img width="2861" height="2422" alt="deepseek_mermaid_20251118_da6631" src="https://github.com/user-attachments/assets/b14cbe25-4300-4f61-8f43-739dea4c5c91" />
 
