@@ -1,51 +1,51 @@
-# Big_Data_Apache_Pig
+# Big Data Analytics with Apache Pig & Hadoop
 
 ---
 
 ## Project Overview
 
-This project implements an end-to-end big-data analytics pipeline using Hadoop HDFS for distributed storage, Apache Pig for ETL and analytical processing, and Python (pandas/matplotlib) for visualization. Raw e-commerce transaction data (300 rows) is ingested, stored in HDFS, processed through Pig Latin scripts, and transformed into analytics describing:
+This project demonstrates a complete **big‑data analytics pipeline** using:
+
+* **Hadoop HDFS** → Distributed data storage
+* **Apache Pig** → ETL + analytical processing
+* **Python (pandas/matplotlib)** → Data visualization
+
+The pipeline processes a 300‑row e‑commerce dataset to extract insights:
 
 * Top 5 products by revenue
-* Top 5 customers by spending
+* Top 5 customers by total spending
 * Revenue per product
 * Revenue per customer
 
-Finally, the results are exported from HDFS and visualized using Python, with optional Excel report generation.
+The results are stored in HDFS, processed with Pig, exported, and visualized using Python.
 
 ---
 
 ## Project Steps
 
-### 1. Start Hadoop Services + Install/Run Pig:
+---
 
-Explanation: These steps install Apache Pig, configure environment variables, and start Hadoop services so Pig can run on top of HDFS.
+## **1. Start Hadoop Services + Install & Run Pig**
 
-* Install Pig
+### **Install Pig** (downloads and extracts Pig):
 
 ```bash
 curl -O https://downloads.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz
 ```
 
-Downloads the Pig installation archive.
-
 ```bash
 tar -xzf pig-0.17.0.tar.gz
 ```
-
-Extracts the Pig files.
 
 ```bash
 mv pig-0.17.0 pig
 ```
 
-Renames the extracted folder for convenience.
+### **Configure Environment Variables** (adds Pig to system PATH):
 
 ```bash
 vi ~/.bashrc
 ```
-
-Opens your environment configuration file.
 
 ```bash
 export PIG_HOME=/home/hadoop/pig
@@ -53,184 +53,156 @@ export PATH=$PATH:$PIG_HOME/bin
 export PIG_CLASSPATH=$HADOOP_HOME/conf
 ```
 
-Adds Pig to the system PATH so you can run it globally.
-
-* Verify Pig installation:
+### **Verify Pig installation** (checks Hadoop integration):
 
 ```bash
 pig -version
 ```
 
-Ensures Pig is installed and linked with Hadoop.
-
-* Start HDFS & YARN
+### **Start Hadoop Services** (enables HDFS + YARN execution):
 
 ```bash
 start-dfs.sh
 start-yarn.sh
 ```
 
-Starts Hadoop's storage layer (HDFS) and execution layer (YARN).
-
-* Check running services:
+### **Check running Hadoop components**:
 
 ```bash
 jps
 ```
 
-Shows active Hadoop-related processes.
+---
 
-### 2. Upload Dataset to HDFS (ecommerce.csv)
+## **2. Upload Dataset to HDFS (ecommerce.csv)**
 
-Explanation: The dataset must be stored inside HDFS before Pig can process it.
+The dataset must be stored **inside HDFS** so Pig can process it.
 
-* Create input folder:
+### **Create input directory inside HDFS**:
 
 ```bash
 hdfs dfs -mkdir /user/pig/input/
 ```
 
-Creates the directory structure in HDFS.
-
-* Upload the dataset:
+### **Upload dataset to HDFS**:
 
 ```bash
 hdfs dfs -put ecommerce.csv /user/pig/input
 ```
 
-Uploads the local CSV file to HDFS.
-
-* Verify:
+### **Verify upload**:
 
 ```bash
 hdfs dfs -ls /user/pig/input
 ```
 
-Confirms that the file exists in HDFS.
+---
 
-### 3. Run the Pig Script (analytics.pig):
+## **3. Run Apache Pig Script (analytics.pig)**
 
-Explanation: Executes the Pig Latin script that performs ETL and analytics on the data.
+Runs the ETL + analytics job using MapReduce.
 
-Run the script:
+### **Execute Pig script**:
 
 ```bash
 pig -x mapreduce analytics.pig
 ```
 
-Runs Pig in MapReduce mode, using the Hadoop cluster.
+### **Generated Output in HDFS:**
 
-Results stored in HDFS:
+* `/user/pig/output/top_products`
+* `/user/pig/output/top_customers`
+* `/user/pig/output/product_revenue`
+* `/user/pig/output/customer_revenue`
 
-* /user/pig/output/top_products
-* /user/pig/output/top_customers
-* /user/pig/output/product_revenue
-* /user/pig/output/customer_revenue
+---
 
-### 4. View or Download Results from HDFS:
+## **4. View or Download Results from HDFS**
 
-Explanation: Displays analytics output or downloads it for local use.
-
-display top products
+### **View results directly in terminal:**
 
 ```bash
 hdfs dfs -cat /user/pig/output/top_products/part-r-00000
 ```
 
-Prints results of the "top products" analysis.
-
-Download to local machine:
+### **Download results to local machine:**
 
 ```bash
 hdfs dfs -get /user/pig/output/top_products top_products.csv
 ```
 
-Downloads results into a CSV file locally.
-
-Same applies for:
-
 ```bash
 hdfs dfs -get /user/pig/output/top_customers top_customers.csv
 ```
 
-Downloads top customers results.
+---
 
-### 5. Visualize Results (Python):
+## **5. Visualize Results with Python**
 
-Explanation: Installs Python tools and generates visualizations.
-
-Install Python 3:
+### **Install Python 3**:
 
 ```bash
 yum install python3 -y
 ```
 
-Installs Python 3 on CentOS.
-
-Check version:
+### **Verify Python installation**:
 
 ```bash
 python3 --version
 ```
 
-Confirms installation.
-
-Install pip:
+### **Install pip**:
 
 ```bash
 curl -O https://bootstrap.pypa.io/get-pip.py
 ```
 
-Downloads pip installer.
-
 ```bash
 python3 get-pip.py --user
 ```
 
-Installs pip locally for the user.
-
-verify version:
+### **Check pip installation**:
 
 ```bash
 pip3 --version
 ```
 
-Checks installation.
-
-Install required Python packages
+### **Install required Python libraries**:
 
 ```bash
 pip3 install pandas matplotlib seaborn
 ```
 
-Installs packages needed for visualization.
-
-Run the script:
+### **Run visualization script**:
 
 ```bash
 python3 visualize.py
 ```
 
-Generates plots using processed data.
+### **Generated Visuals:**
 
-Results:
+* `top_products_pie.png`
 
-* top_products_pie.png
-
-  <img width="373" height="386" alt="image" src="https://github.com/user-attachments/assets/22187e0b-790e-4cd5-9c67-bde96265ab87" />
+<img width="373" height="386" alt="image" src="https://github.com/user-attachments/assets/22187e0b-790e-4cd5-9c67-bde96265ab87" />
   
-* top_customers_bar.png
-  
-  <img width="494" height="298" alt="image" src="https://github.com/user-attachments/assets/e1979fbf-8dde-4340-9b6f-27c94e86ce7f" />
+* `top_customers_bar.png`
 
-### Diagram: Full Data Pipeline
+<img width="494" height="298" alt="image" src="https://github.com/user-attachments/assets/e1979fbf-8dde-4340-9b6f-27c94e86ce7f" />
 
-  <img width="2861" height="2422" alt="deepseek_mermaid_20251118_da6631" src="https://github.com/user-attachments/assets/b14cbe25-4300-4f61-8f43-739dea4c5c91" />
+---
 
-## Learning Objective
+## Full Data Pipeline Diagram
 
-* Use Pig Latin for ETL & analytics
-* Store and process data in HDFS
-* Build a complete big-data analytics pipeline
-* Generate business insights from raw data
-* Visualize results using Python
+<img width="2861" height="2422" alt="deepseek_mermaid_20251118_da6631" src="https://github.com/user-attachments/assets/b14cbe25-4300-4f61-8f43-739dea4c5c91" />
+
+---
+
+## Learning Objectives
+
+✔ Use Pig Latin for ETL & analytics
+✔ Store and process data in HDFS
+✔ Build a complete big‑data processing pipeline
+✔ Extract business insights from raw data
+✔ Visualize analytics using Python
+
+---
