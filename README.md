@@ -52,7 +52,7 @@ export PIG_HOME=/home/hadoop/pig
 export PATH=$PATH:$PIG_HOME/bin
 export PIG_CLASSPATH=$HADOOP_HOME/conf
 ```
-### ** reloads bash configuration**
+### **reloads bash configuration**
 ```bash
 source ~/.bashrc
 ```
