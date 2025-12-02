@@ -209,3 +209,29 @@ python3 visualize.py
 ✔ Visualize analytics using Python
 
 ---
+
+### **Fix the 0.0.0.0:10020 retry spam that Pig sends to Hadoop MapReduce service "JobHistory Server"**
+
+- Edit `$HADOOP_HOME/etc/hadoop/mapred-site.xml`
+
+```bash
+<configuration>
+    <property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>localhost:10020</value>
+    </property>
+
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>localhost:19888</value>
+    </property>
+</configuration>
+```
+
+- Then run :
+
+```bash
+mapred --daemon start historyserver
+```
+
+---
